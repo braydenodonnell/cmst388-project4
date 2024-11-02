@@ -171,8 +171,27 @@ document.addEventListener('DOMContentLoaded', () => {
       // TODO:
       //   1. Add the new skill to the skills array and display the updated list of skills.
       //   2. Clear the input fields after adding the skill
+      const skill = {
+        name: newSkill,
+        level: skillLevel,
+      };
+      skills.push(skill);
+      displaySkills();
+      newSkillInput.value = '';
+      skillLevelInput.value = '';
     } else {
       // TODO: Display an alert if the skill name is empty or the skill level is not between 0 and 100
+      if (!newSkill && !skillLevel) {
+        alert('Please enter skill name and level.');
+      } else if (!newSkill) {
+        alert('Please enter skill name.');
+      } else if (!skillLevel) {
+        alert('Please enter skill level.');
+      }
+
+      if (skillLevel < 0 || skillLevel > 100) {
+        alert('Enter skill level between 0 and 100.');
+      }
     }
   });
 
@@ -181,6 +200,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // TODO:
     //   1. Get the values from the form fields name, email, and message and store them in variables.
     //   2. Display an alert if any of the fields are empty. Otherwise, display a success message
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      alert('Please ensure name, email, and message is filled out.');
+      return;
+    }
+
+    try {
+      fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          message: message,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }).then(() => {
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+        alert('submitted');
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   });
 
   /* PART 5: IMPLEMENT THEME TOGGLE
