@@ -33,17 +33,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const projects = [
     // TODO: Add projects here by defining objects with title, description, and link properties
     // Example: { title: 'Project 1', description: 'Description of project 1', link: '#'}
+    {
+      title: 'Personal Website',
+      description: 'My personal website, made with React',
+      link: 'https://braydenodonnell.com/',
+    },
+    {
+      title: 'CMST 388 Project 1',
+      description: 'Basic JavaScript Selectors and DOM Manipulation',
+      link: 'https://cmst388-bodonnell5.azurewebsites.net/cmst388-project1/',
+    },
+    {
+      title: 'CMST 388 Project 2',
+      description: 'Registration form with validation',
+      link: 'https://cmst388-bodonnell5.azurewebsites.net/cmst388-project2-v2/',
+    },
   ];
 
   const skills = [
     // TODO: Add skills here by defining objects with name and level properties
+    {
+      name: 'HTML',
+      level: 90,
+    },
+    {
+      name: 'CSS',
+      level: 80,
+    },
+    {
+      name: 'Web Design',
+      level: 70,
+    },
+    {
+      name: 'JavaScript',
+      level: 75,
+    },
   ];
 
   function displayProjects() {
     projectList.innerHTML = '';
     projects.forEach(project => {
-      // TODO: Create a new div element assigned to a new variable called projectCard and assign a className of 'project-card'. Set innerHTML to display the project title, description, and link
+      // TODO: Create a new div element assigned to a new variable called projectCard and assign a
+      // className of 'project-card'. Set innerHTML to display the project title, description, and link
       // Example: projectCard.innerHTML = `<h3>${project.title}</h3> ...`
+
+      const projectCard = document.createElement('div');
+      projectCard.className = 'project-card';
+      projectCard.innerHTML = `
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+        <a href=${project.link} target='_blank'>View Project</a>
+      `;
 
       projectList.appendChild(projectCard);
     });
@@ -52,7 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
   function displaySkills() {
     skillList.innerHTML = '';
     skills.forEach(skill => {
-      // TODO: Create a new li element assigned to a new variable called skillItem. Set innerHTML to display the skill name and level
+      // TODO: Create a new li element assigned to a new variable called skillItem.
+      // Set innerHTML to display the skill name and level
+      const skillItem = document.createElement('li');
+      skillItem.innerHTML = `
+        <p>${skill.name}</p>
+        <div class='skill-bar'>
+          <div class='skill-bar-fill'></div>
+        </div>
+        `;
+
+      const skillBarFill = skillItem.querySelector('.skill-bar-fill');
+      skillBarFill.style.width = `${skill.level}%`;
 
       skillList.appendChild(skillItem);
     });
