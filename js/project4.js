@@ -113,8 +113,51 @@ document.addEventListener('DOMContentLoaded', () => {
     --------------------------------------------------
     */
 
+  introduction.textContent = localStorage.getItem('introText');
+
   editIntroButton.addEventListener('click', () => {
-    // TODO: Prompt the user to enter a new introduction and update the introduction element with the new text
+    // TODO: Prompt the user to enter a new introduction and
+    // update the introduction element with the new text
+    let isEdit = true;
+
+    if (!isEdit) return;
+
+    editIntroButton.style.display = 'none';
+    const introDiv = document.createElement('div');
+    introDiv.style.display = 'flex';
+    introDiv.style.flexDirection = 'column';
+    introDiv.style.gap = '1rem';
+
+    const textArea = document.createElement('textarea');
+
+    const buttonDiv = document.createElement('div');
+    buttonDiv.style.display = 'flex';
+    buttonDiv.style.gap = '1rem';
+
+    const cancel = document.createElement('button');
+    cancel.textContent = 'Cancel';
+    const update = document.createElement('button');
+    update.textContent = 'Update';
+
+    update.addEventListener('click', () => {
+      localStorage.setItem('introText', textArea.value);
+      introduction.textContent = localStorage.getItem('introText');
+      introDiv.style.display = 'none';
+      editIntroButton.style.display = 'flex';
+    });
+
+    cancel.addEventListener('click', () => {
+      isEdit = false;
+      editIntroButton.style.display = 'flex';
+      introDiv.style.display = 'none';
+    });
+
+    introDiv.appendChild(textArea);
+    buttonDiv.appendChild(cancel);
+    buttonDiv.appendChild(update);
+    introDiv.appendChild(buttonDiv);
+
+    introduction.insertAdjacentElement('afterend', introDiv);
   });
 
   /* PART 4: IMPLEMENT SKILLS DISPLAY AND CONTACT FORM FUNCTIONALITY
